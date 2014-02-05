@@ -1,0 +1,46 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/libs/org.taptwo.android.widge"
+    android:id="@+id/LinearLayout1"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    android:gravity="center_horizontal"
+    android:orientation="vertical" >
+
+    <org.taptwo.android.widget.CircleFlowIndicator
+        android:id="@+id/viewflowindic2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dip"
+        app:fadeOut="1000"
+        app:inactiveType="fill" />
+
+    <org.taptwo.android.widget.ViewFlow
+        android:id="@+id/viewflow2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.39"
+        app:sidebuffer="2" >
+    </org.taptwo.android.widget.ViewFlow>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02"
+        android:gravity="center|center_horizontal"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/txvchage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ichange"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#ffffff"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</LinearLayout>

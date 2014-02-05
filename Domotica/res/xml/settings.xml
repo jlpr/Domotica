@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory
+        android:title="@string/app_user_database">
+        
+        	<ListPreference
+        	     android:key="save_database_day"
+        	     android:entries="@array/DAY"
+        	     android:title="Día del Mes para Guardar"
+        	     android:entryValues="@array/value_day"
+        	     android:positiveButtonText="Aceptar"
+        	     android:negativeButtonText="Cancelar"
+        	     android:dialogTitle="Guardar Base de  Datos"	/>
+        	<ListPreference
+        	     android:key="save_chage_database"
+        	     android:entries="@array/database_time"
+        	     android:title="Guardar cada:"
+        	     android:entryValues="@array/database_time_value"
+        	     android:positiveButtonText="Aceptar"
+        	     android:negativeButtonText="Cancelar"
+        	     android:dialogTitle="Guardar cada:"	/>
+        
+    </PreferenceCategory>
+
+</PreferenceScreen>
