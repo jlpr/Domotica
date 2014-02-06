@@ -5,6 +5,7 @@ import org.taptwo.android.widget.TitleFlowIndicator;
 import org.taptwo.android.widget.ViewFlow;
 import org.taptwo.android.widget.ViewFlow.ViewSwitchListener;
 import android.app.Activity;
+import android.content.ClipData.Item;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -46,9 +47,9 @@ public class MainActivity extends Activity {
 	public String NAMEDEVICES;
 	int IDIMAGEN=0;
 	FrameLayout FRAMELAYOUTMAIN;
-	Dialogcharts DIALOGCHART= new Dialogcharts();
+	Dialogcharts DIALOGCHART;
 	LinearLayout LBAR,LPIE,LBUBLE,LLINE,LTEMPERATURE,LCHARTONLINE;
-
+	QuickAction mQuickAction;
 
 	@SuppressWarnings("deprecation")
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +57,10 @@ public class MainActivity extends Activity {
 		this.getWindow().requestFeature(Window.FEATURE_PROGRESS);
 		setContentView(R.layout.activity_main);
 		FRAMELAYOUTMAIN= (FrameLayout)findViewById(R.id.frmain);
+		DIALOGCHART= new Dialogcharts();
 	 IDIMAGEN=ManagerXML.leerXML(this);
-	 
-		Utils.getInstance().MakeToastLong(getApplicationContext(), ""+IDIMAGEN);
-	
-		FRAMELAYOUTMAIN.setBackground(new BitmapDrawable(BitmapChange.decodeSampledBitmapFromResource(getResources(), IDIMAGEN, 100, 100)));
+	 	
+		FRAMELAYOUTMAIN.setBackground(new BitmapDrawable(BitmapChange.decodeSampledBitmapFromResource(getResources(), IDIMAGEN, 300, 300)));
 	
      /**
       * variables
@@ -95,26 +95,12 @@ public class MainActivity extends Activity {
 			
 			INDICATOR.setTitleProvider(ADAPTER);
 			VIEWFLOW.setFlowIndicator(INDICATOR);
-
 			/**
 			 *  Quick Action create items
 			 */
 	        //Add action item
-	        ActionItem addAction = new ActionItem();       
-	        addAction.setTitle("On");
-	        addAction.setIcon(getResources().getDrawable(R.drawable.on_actionquick)); 
-	        //Accept action item
-	        ActionItem accAction = new ActionItem();         
-	        accAction.setTitle("Off");
-	        accAction.setIcon(getResources().getDrawable(R.drawable.off_actionquick));         
-	        //Upload action item
-	        ActionItem upAction = new ActionItem();         
-	        upAction.setTitle("Info");
-	        upAction.setIcon(getResources().getDrawable(R.drawable.info_actionquick));      
-	        final QuickAction mQuickAction  = new QuickAction(this);
-	       mQuickAction.addActionItem(addAction);
-	        mQuickAction.addActionItem(accAction);
-	        mQuickAction.addActionItem(upAction);
+	        mQuickAction  = new QuickAction(this);
+	      addItem(addActionItem()); 
 	         mQuickAction.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
 	        //setup the action item click listener
 	        mQuickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {         
@@ -156,10 +142,15 @@ public class MainActivity extends Activity {
 		      
 		       
 		       LBAR= (LinearLayout)findViewById(R.id.layoutBar);
-		  	 LBAR.setOnClickListener(clickSelection(MainActivity.this, 1));
+		  	 LBAR.setOnClickListener(clickSelection (1));
 		       LCHARTONLINE=(LinearLayout)findViewById(R.id.layoutOnline);
-		       LCHARTONLINE.setOnClickListener(clickSelection(MainActivity.this, 5));
-		  			 
+		       LCHARTONLINE.setOnClickListener(clickSelection( 5));
+		       LLINE= (LinearLayout)findViewById(R.id.layoutLine);
+			  	 LLINE.setOnClickListener(clickSelection (0));
+			       LBUBLE=(LinearLayout)findViewById(R.id.layoutBuble);
+			       LBUBLE.setOnClickListener(clickSelection( 3));   
+				       LPIE=(LinearLayout)findViewById(R.id.layoutPie);
+				       LPIE.setOnClickListener(clickSelection( 2));
 		  			 
      /**
       * Menu satellite
@@ -190,6 +181,8 @@ public class MainActivity extends Activity {
 					 intent= new Intent(MainActivity.this,LoginActivity.class);
 					startActivity(intent);
 					finish();
+					break;
+				
 				}	
 			}
 		});
@@ -208,17 +201,41 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
-	public OnClickListener clickSelection(final Activity activity, final int tipo){
+	public OnClickListener clickSelection( final int tipo){
 		OnClickListener openChart= new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				DIALOGCHART.graficaDialogo(activity, tipo);
+				DIALOGCHART.graficaDialogo(MainActivity.this, tipo);
 			}
 		};
 		return openChart;
 	}
 	
+	public void  addItem(ArrayList<ActionItem>listaAction){
+		for (ActionItem ai: listaAction){
+			mQuickAction.addActionItem(ai);
+		}
+
+	}
 	
+	public ArrayList<ActionItem> addActionItem(){
+		ArrayList<ActionItem>listItem= new ArrayList<ActionItem>();
+		 ActionItem addAction = new ActionItem();       
+	        addAction.setTitle("On");
+	        addAction.setIcon(getResources().getDrawable(R.drawable.on_actionquick)); 
+	        //Accept action item
+	        ActionItem accAction = new ActionItem();         
+	        accAction.setTitle("Off");
+	        accAction.setIcon(getResources().getDrawable(R.drawable.off_actionquick));         
+	        //Upload action item
+	        ActionItem upAction = new ActionItem();         
+	        upAction.setTitle("Info");
+	        upAction.setIcon(getResources().getDrawable(R.drawable.info_actionquick)); 
+	        listItem.add(upAction);
+	        listItem.add(accAction);
+	        listItem.add(addAction);
+		return listItem;
+	}
 
 }

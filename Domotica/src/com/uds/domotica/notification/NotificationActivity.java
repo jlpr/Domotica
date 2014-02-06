@@ -1,8 +1,4 @@
 package com.uds.domotica.notification;
-
-
-
-
 public class NotificationActivity {
 
 	/*

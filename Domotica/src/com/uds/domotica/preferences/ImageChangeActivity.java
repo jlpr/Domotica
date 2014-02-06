@@ -31,7 +31,7 @@ public class ImageChangeActivity extends Activity {
 		setTitle("Imagen");
 		setContentView(R.layout.imagechange);
 		tvinombre=(TextView)findViewById(R.id.txvchage);
-		util=new int[] {R.drawable.bg_sky,R.drawable.red_orage,R.drawable.blue_green};
+		util=new int[] {R.drawable.bg_sky,R.drawable.red_orage,R.drawable.blue_green,R.drawable.lago};
 		viewFlow = (ViewFlow) findViewById(R.id.viewflow2);
 		viewFlow.setAdapter(new ChangeAdapter(this,util), 0);
 

@@ -20,7 +20,6 @@ public class WebActivity extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.diff_view3);
-	
 		  final show_Web SHOWWEB= new show_Web();
 		  if(AvailableInternet.getInstance().isNetworkAvailable(getApplicationContext())){
 				BROWSER = (WebView)findViewById(R.id.webView1);
@@ -52,11 +51,7 @@ public class WebActivity extends Activity{
 				Utils.getInstance().MakeToastLong(getApplicationContext(), " No tiene Internet!!");
 			}
 	}
-	/**
-	 * 
-	 * @category WebView
-	 *
-	 */
+
 	private class show_Web extends WebViewClient {
 
 	    @Override

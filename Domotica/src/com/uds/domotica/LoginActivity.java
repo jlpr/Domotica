@@ -27,36 +27,32 @@ import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import com.uds.domotica.introduction.CircleViewFlowExample;
 import com.uds.domotica.utils.BitmapChange;
+import com.uds.domotica.utils.ClickOpenClass;
 import com.uds.domotica.utils.ManagerXML;
 import com.uds.domotica.utils.Utils;
 
 public class LoginActivity extends Activity{
-
-	EditText edtUsuario;
-	EditText edtcontraseña;
-	Button btnLogin,btnIntro;
+	EditText EDTUSUARIO;
+	EditText EDTCONTRASEÑA;
+	Button BTNLOGIN,BTNINTRO;
 	CheckBox ckrRecordar;
 	RelativeLayout rlLogin;
 	TabHost tabWi;
-	String urls="http://echo.jsontest.com/key/value/one/two";
-
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-	
 		setContentView(R.layout.activity_login);
 		rlLogin=(RelativeLayout)findViewById(R.id.RelativeLayout1);
-	btnLogin = (Button)findViewById(R.id.btnStart);
-	edtUsuario=(EditText)findViewById(R.id.edtUser);
-	edtcontraseña=(EditText)findViewById(R.id.edtPassword);
+	BTNLOGIN = (Button)findViewById(R.id.btnStart);
+	EDTUSUARIO=(EditText)findViewById(R.id.edtUser);
+	EDTCONTRASEÑA=(EditText)findViewById(R.id.edtPassword);
 	ckrRecordar= (CheckBox)findViewById(R.id.checkBox1);
-	btnIntro=(Button)findViewById(R.id.btnIntro);
+	BTNINTRO=(Button)findViewById(R.id.btnIntro);
 	tabWi=(TabHost)findViewById(R.id.tbhost);
 	tabWi.setup();
 	TabHost.TabSpec tabs= tabWi.newTabSpec("Inicio");
-
 	tabs.setContent(R.id.tab1);
 	tabs.setIndicator("Inicio");
 	tabWi.addTab(tabs);
@@ -64,63 +60,35 @@ public class LoginActivity extends Activity{
 	tabs2.setContent(R.id.tab2);
 	tabs2.setIndicator("Introduccion");
 	tabWi.addTab(tabs2);
-
-	
-	
 	if(checkFile()){
-
-		
 	}
 	else{
 		ManagerXML.escribirXML(this, "2130837513");
 	}
-	
 	int idimagen=ManagerXML.leerXML(this);
 	//Utils.getInstance().MakeToastLong(getApplicationContext(), "error: "+idimagen );
-		rlLogin.setBackground(new BitmapDrawable(BitmapChange.decodeSampledBitmapFromResource(getResources(), idimagen, 100, 100)));
-
-	
-	
+	rlLogin.setBackground(new BitmapDrawable(BitmapChange.decodeSampledBitmapFromResource(getResources(),idimagen, 300, 300)));
 	//rlLogin.setBackgroundResource(idimagen);
 	 loadSavedPreferences();
-	
-	btnLogin.setOnClickListener(new OnClickListener() {
-		
+	BTNLOGIN.setOnClickListener(new OnClickListener() {
 		@Override
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
 		    savePreferences("CheckBox_Value", ckrRecordar.isChecked());
-		    		
-	     
-
-		    
-		
 		    if (ckrRecordar.isChecked()) {
-		                savePreferences("Usuario", edtUsuario.getText().toString());
+		                savePreferences("Usuario", EDTUSUARIO.getText().toString());
 		     }
 		           //UsersAsyncTask user= new UsersAsyncTask(edtUsuario, edtcontraseña, getApplicationContext(), MainActivity.class);
-		            //user.execute();
-		            
+		            //user.execute();    
 				Intent intenta= new Intent(getApplicationContext(),MainActivity.class);
-					startActivity(intenta);
-					//  ProgressBar pb= new ProgressBar();
-					Utils.getInstance().MakeProgressDialog(LoginActivity.this, "Entrando", "Cargando...");
-					   //pb.showDialog(LoginActivity.this, "Entrando...", "Cargando....");
+					startActivity(intenta);	
+				//	Utils.getInstance().MakeProgressDialog(LoginActivity.this, "Entrando", "Cargando...");
 		            finish();
-
 		}
 	});
-	btnIntro.setOnClickListener(new OnClickListener() {
-		
-		@Override
-		public void onClick(View v) {
-			// TODO Auto-generated method stub
-
-			Intent intenta= new Intent(getApplicationContext(), CircleViewFlowExample.class);
-			startActivity(intenta);
 	
-		}
-	});
+	BTNINTRO.setOnClickListener(ClickOpenClass.openClass(this,CircleViewFlowExample.class));
+		
 	}
 	private void loadSavedPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -131,9 +99,8 @@ public class LoginActivity extends Activity{
         } else {
         	 ckrRecordar.setChecked(false);
         }
-        edtUsuario.setText(name);
+        EDTUSUARIO.setText(name);
     }
-
 	private void savePreferences(String key, boolean value) {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Editor editor = sharedPreferences.edit();
@@ -141,8 +108,7 @@ public class LoginActivity extends Activity{
         editor.commit();
     }
 
-    private void savePreferences(String key, String value) {
-    	
+    private void savePreferences(String key, String value) {	
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
@@ -151,13 +117,13 @@ public class LoginActivity extends Activity{
     private boolean checkFile(){
     	boolean checar=false;
     	File file = new File(getFilesDir()+"/test.xml");
-
     		if (file.exists())
     		{
     			checar =true;
     		}
     	return checar;
     }
+    /*
     private String toMd5(String pass){
         try{
             //Creando Hash MD5
@@ -177,8 +143,8 @@ public class LoginActivity extends Activity{
         }
     }
     
-    public InputStream retrieveStream(String url){
-    	
+    
+    public InputStream retrieveStream(String url){ 	
     	DefaultHttpClient dhc= new DefaultHttpClient();
     	HttpGet htg= new HttpGet(url);
     	try{
@@ -188,8 +154,7 @@ public class LoginActivity extends Activity{
     			Log.w(getClass().getSimpleName(), "Error: "+statusCode+"for URL: "+url);
     		}
     		HttpEntity htpe= htr.getEntity();
-    		return htpe.getContent();
-    		
+    		return htpe.getContent();  		
     	}
     	catch(IOException ie){
     		htg.abort();
@@ -197,5 +162,8 @@ public class LoginActivity extends Activity{
     	}
     	return null;
     }
+    */
+    
+
 
 }
