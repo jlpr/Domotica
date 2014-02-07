@@ -22,15 +22,11 @@ public class RandomColor {
 		return instance;
 	}
 	
-	public int crearColor(){
-		
-		
+	public int createColor(){
 		int r= rcolor.nextInt();
 		int g= rcolor.nextInt();
 		int b= rcolor.nextInt();
-
 		return Color.argb(10, r, g, b);
-		
 	}
 	
 }

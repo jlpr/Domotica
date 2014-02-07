@@ -1,31 +1,68 @@
 package com.uds.domotica.charts;
 
 import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYValueSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import com.uds.domotica.R;
+import com.uds.domotica.utils.Utils;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
-public class BubleChartsActivity extends AbstractCharts implements ICharts{
+public class BubleChartsActivity extends Activity{
 
+	 GraphicalView mchart;
+	String nameChart;
+	 String [][] datoSerie;
+	 Bitmap bitmap;
+    LinearLayout lChart;
 	@Override
-	public String getNombre() {
+	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		return null;
-	}
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.showchart);
+		 lChart= (LinearLayout)findViewById(R.id.charts);
+		lChart.addView(crearGrafica());
 
-	@Override
-	public String getDescripcion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+		Button btnSave= (Button)findViewById(R.id.btnSaveImage);
+		btnSave.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+		
+                mchart.setDrawingCacheEnabled(true); 
+                mchart.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH); 
+                //Build the cache, get the bitmap and close the cache 
+                mchart.buildDrawingCache(true); 
+                mchart.setSaveEnabled(true);
+                Bitmap b = Bitmap.createBitmap(mchart.getDrawingCache()); 
+                mchart.setDrawingCacheEnabled(false); 
 
-	@Override
-	public Intent crearGrafica(Context context) {
+                try { 
+                	AbstractCharts.saveImageToInternalStorage(b,getApplicationContext());
+            Utils.getInstance().MakeToastLong(getApplicationContext(), "Guardado en: " + getPackageCodePath() );
+                } catch (Exception e) { 
+                        e.printStackTrace(); 
+                } 
+			
+			}
+		});
+
+	}
+	public GraphicalView crearGrafica() {
 		// TODO Auto-generated method stub
 		XYMultipleSeriesDataset series = new XYMultipleSeriesDataset();
 	    XYValueSeries newTicketSeries = new XYValueSeries("New Tickets");
@@ -56,12 +93,13 @@ public class BubleChartsActivity extends AbstractCharts implements ICharts{
 	    fixedTicketRenderer.setColor(Color.GREEN);
 	    renderer.addSeriesRenderer(fixedTicketRenderer);
 
-	    setChartSettings(renderer, "Project work status", "Priority", "", 0.5, 5.5, 0, 5, Color.GRAY,
+	    AbstractCharts.setChartSettings(renderer, "Project work status", "Priority", "", 0.5, 5.5, 0, 5, Color.GRAY,
 	        Color.LTGRAY);
 	    renderer.setXLabels(7);
 	    renderer.setYLabels(0);
 	    renderer.setShowGrid(false);
-	    return ChartFactory.getBubbleChartIntent(context, series, renderer, "Project tickets");
+	    mchart=ChartFactory.getBubbleChartView(this, series, renderer );
+	    return  mchart;
 	}
 	
 

@@ -44,28 +44,23 @@ public class Dialogcharts {
 				final Intent inten;
 				switch(tipo){
 				case 0:
-					LineChartActivity lnca= new LineChartActivity();
-					 inten= lnca.crearGrafica(activity);
+					 inten= new Intent(activity,LineChartActivity.class);
 					activity.startActivity(inten);
 					break;
 				case 1:
-					BarChartActivity baac= new BarChartActivity();
-					inten= baac.crearGrafica(activity);
+					inten= new Intent(activity,BarChartActivity.class);
 					activity.startActivity(inten);
 					break;
 				case 2:
-					PieChartActivity pcn= new PieChartActivity();
-					 inten= pcn.crearGrafica(activity);
+					 inten= new Intent(activity,PieChartActivity.class);
 					activity.startActivity(inten);
 					break;
 				case 3:
-					BubleChartsActivity bbca=new BubleChartsActivity();
-					inten= bbca.crearGrafica(activity);
+					 inten= new Intent(activity,BubleChartsActivity.class);
 					activity.startActivity(inten);
 					break;
 				case 4:
-					TemperatureChartsActivity tmca=new TemperatureChartsActivity();
-					inten= tmca.crearGrafica(activity);
+					 inten= new Intent(activity,TemperatureChartsActivity.class);
 					activity.startActivity(inten);
 					break;
 				case 5:

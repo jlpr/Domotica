@@ -4,30 +4,71 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
+import com.uds.domotica.R;
+import com.uds.domotica.adapters.gridViewAdapter;
+import com.uds.domotica.utils.Utils;
+
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint.Align;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
-public class TemperatureChartsActivity extends AbstractCharts implements ICharts {
+public class TemperatureChartsActivity extends Activity {
 
-		public String getNombre() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		@Override
-		public String getDescripcion() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		@Override
-		public Intent crearGrafica(Context context) {
+	 GraphicalView mchart;
+		String nameChart;
+		 String [][] datoSerie;
+		 Bitmap bitmap;
+	    LinearLayout lChart;
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.showchart);
+		 lChart= (LinearLayout)findViewById(R.id.charts);
+		lChart.addView(crearGrafica());
+
+	
+		Button btnSave= (Button)findViewById(R.id.btnSaveImage);
+		btnSave.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+		
+                mchart.setDrawingCacheEnabled(true); 
+                mchart.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH); 
+                //Build the cache, get the bitmap and close the cache 
+                mchart.buildDrawingCache(true); 
+                mchart.setSaveEnabled(true);
+                Bitmap b = Bitmap.createBitmap(mchart.getDrawingCache()); 
+                mchart.setDrawingCacheEnabled(false); 
+
+                try { 
+                	AbstractCharts.saveImageToInternalStorage(b,getApplicationContext());
+            Utils.getInstance().MakeToastLong(getApplicationContext(), "Guardado en: " + getPackageCodePath() );
+                } catch (Exception e) { 
+                        e.printStackTrace(); 
+                } 
+			
+			}
+		});
+
+	}
+		public GraphicalView crearGrafica() {
 			// TODO Auto-generated method stub
 			  String[] titles = new String[] { "Crete", "Corfu", "Thassos", "Skiathos" };
 			    List<double[]> x = new ArrayList<double[]>();
@@ -43,12 +84,12 @@ public class TemperatureChartsActivity extends AbstractCharts implements ICharts
 			    int[] colors = new int[] { Color.BLUE, Color.GREEN, Color.CYAN, Color.YELLOW };
 			    PointStyle[] styles = new PointStyle[] { PointStyle.CIRCLE, PointStyle.DIAMOND,
 			        PointStyle.TRIANGLE, PointStyle.SQUARE };
-			    XYMultipleSeriesRenderer renderer = buildRenderer(colors, styles);
+			    XYMultipleSeriesRenderer renderer = AbstractCharts.buildRenderer(colors, styles);
 			    int length = renderer.getSeriesRendererCount();
 			    for (int i = 0; i < length; i++) {
 			      ((XYSeriesRenderer) renderer.getSeriesRendererAt(i)).setFillPoints(true);
 			    }
-			    setChartSettings(renderer, "Average temperature", "Month", "Temperature", 0.5, 12.5, -10, 40,
+			    AbstractCharts.setChartSettings(renderer, "Average temperature", "Month", "Temperature", 0.5, 12.5, -10, 40,
 			        Color.LTGRAY, Color.LTGRAY);
 			    renderer.setXLabels(12);
 			    renderer.setYLabels(10);
@@ -59,7 +100,7 @@ public class TemperatureChartsActivity extends AbstractCharts implements ICharts
 			    renderer.setPanLimits(new double[] { -10, 20, -10, 40 });
 			    renderer.setZoomLimits(new double[] { -10, 20, -10, 40 });
 
-			    XYMultipleSeriesDataset dataset = buildDataset(titles, x, values);
+			    XYMultipleSeriesDataset dataset = AbstractCharts.buildDataset(titles, x, values);
 			    XYSeries series = dataset.getSeriesAt(0);
 			    series.addAnnotation("Vacation", 6, 28);
 
@@ -67,9 +108,8 @@ public class TemperatureChartsActivity extends AbstractCharts implements ICharts
 			    r.setAnnotationsColor(Color.GREEN);
 			    r.setAnnotationsTextSize(15);
 			    r.setAnnotationsTextAlign(Align.CENTER);
-			    Intent intent = ChartFactory.getLineChartIntent(context, dataset, renderer,
-			        "Average temperature");
-			    return    intent;
+			    mchart=ChartFactory.getLineChartView(this, dataset, renderer);
+			    return  mchart;
 		}
 	
 }

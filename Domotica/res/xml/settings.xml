@@ -19,7 +19,14 @@
         	     android:positiveButtonText="Aceptar"
         	     android:negativeButtonText="Cancelar"
         	     android:dialogTitle="Guardar cada:"	/>
-        
+        	<CheckBoxPreference
+        	    android:title="Actualizar Base de datos"
+        	    android:key="save_check_database"
+        	    android:summaryOn="Desactivar"
+        	    android:summaryOff="Activar"
+        	    >
+        	    
+        	</CheckBoxPreference>
     </PreferenceCategory>
 
 </PreferenceScreen>

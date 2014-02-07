@@ -22,14 +22,17 @@
 
             <LinearLayout
                 android:id="@+id/layoutBar"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:gravity="center"
+                android:layout_margin="5dp"
+                android:filterTouchesWhenObscured="true"
+                
                 android:background="@color/black_transparente"
                 android:orientation="vertical" >
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/pruebaImage"
                     android:layout_width="150dp"
                     android:layout_height="100dp"
                     android:src="@drawable/bargraph" />
@@ -44,15 +47,11 @@
 
             </LinearLayout>
 
-            <View
-                android:id="@+id/view1"
-                android:layout_width="25dp"
-                android:layout_height="fill_parent" />
-
             <LinearLayout
                 android:id="@+id/layoutPie"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+             android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_margin="5dp"
                 android:background="@color/black_transparente"
                 android:gravity="center"
                 android:orientation="vertical" >
@@ -72,15 +71,11 @@
                     android:textColor="#ffffff" />
             </LinearLayout>
 
-            <View
-                android:id="@+id/View03"
-                android:layout_width="25dp"
-                android:layout_height="fill_parent" />
-
             <LinearLayout
                 android:id="@+id/LinearLayout01"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+               android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:background="@color/black_transparente"
                 android:gravity="center"
                 android:orientation="vertical" >
@@ -102,20 +97,17 @@
 
         </LinearLayout>
 
-        <View
-            android:id="@+id/view2"
-            android:layout_width="wrap_content"
-            android:layout_height="63dp" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="140dp"
+            android:layout_marginTop="5dp"
             android:gravity="center" >
 
             <LinearLayout
                 android:id="@+id/layoutLine"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+            android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:gravity="center"
                    android:background="@color/black_transparente"
                 android:orientation="vertical" >
@@ -136,15 +128,11 @@
 
             </LinearLayout>
 
-            <View
-                android:id="@+id/View01"
-                android:layout_width="25dp"
-                android:layout_height="fill_parent" />
-
             <LinearLayout
                 android:id="@+id/layoutBuble"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+           android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:gravity="center"
                 
                    android:background="@color/black_transparente"
@@ -166,15 +154,11 @@
 
             </LinearLayout>
 
-            <View
-                android:id="@+id/View04"
-                android:layout_width="25dp"
-                android:layout_height="fill_parent" />
-
             <LinearLayout
                 android:id="@+id/layoutOnline"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+           	 android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:background="@color/black_transparente"
                 android:gravity="center"
                 android:orientation="vertical" >

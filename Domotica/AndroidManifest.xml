@@ -48,14 +48,19 @@
             android:label="@string/login_name" >
        
         </activity>
+        <activity
+            android:name="com.uds.domotica.charts.BubleChartsActivity"
+            android:label="@string/login_name" >
+       
+        </activity>
          <activity
             android:name="com.uds.domotica.preferences.ImageChangeActivity"
             android:label="@string/login_name" >
        
         </activity>
-      	 <activity
-            android:name="com.uds.domotica.DashboardActivity"
-            android:label="@string/login_name" >
+        <activity
+            android:name="com.uds.domotica.charts.ShowChartActivity"
+            android:label="@string/name_web" >
        
         </activity>
         <activity

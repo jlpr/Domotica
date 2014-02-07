@@ -1,8 +1,11 @@
  package com.uds.domotica.charts;
 
+import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
 
+import org.achartengine.GraphicalView;
+import org.achartengine.ITouchHandler;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.MultipleCategorySeries;
@@ -14,15 +17,22 @@ import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 
-public abstract class AbstractCharts {
-	protected XYMultipleSeriesDataset buildDataset(String[] titles, List<double[]> xValues,
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+
+public  class AbstractCharts {
+	protected static XYMultipleSeriesDataset buildDataset(String[] titles, List<double[]> xValues,
 		      List<double[]> yValues) {
 		    XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		    addXYSeries(dataset, titles, xValues, yValues, 0);
 		    return dataset;
 		  }
 
-		  public void addXYSeries(XYMultipleSeriesDataset dataset, String[] titles, List<double[]> xValues,
+		  public static void addXYSeries(XYMultipleSeriesDataset dataset, String[] titles, List<double[]> xValues,
 		      List<double[]> yValues, int scale) {
 		    int length = titles.length;
 		    for (int i = 0; i < length; i++) {
@@ -44,13 +54,13 @@ public abstract class AbstractCharts {
 		   * @param styles the series point styles
 		   * @return the XY multiple series renderers
 		   */
-		  protected XYMultipleSeriesRenderer buildRenderer(int[] colors, PointStyle[] styles) {
+		  protected static XYMultipleSeriesRenderer buildRenderer(int[] colors, PointStyle[] styles) {
 		    XYMultipleSeriesRenderer renderer = new XYMultipleSeriesRenderer();
 		    setRenderer(renderer, colors, styles);
 		    return renderer;
 		  }
 
-		  protected void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors, PointStyle[] styles) {
+		  protected static void setRenderer(XYMultipleSeriesRenderer renderer, int[] colors, PointStyle[] styles) {
 		    renderer.setAxisTitleTextSize(16);
 		    renderer.setChartTitleTextSize(20);
 		    renderer.setLabelsTextSize(15);
@@ -80,7 +90,7 @@ public abstract class AbstractCharts {
 		   * @param axesColor the axes color
 		   * @param labelsColor the labels color
 		   */
-		  protected void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
+		  protected static void setChartSettings(XYMultipleSeriesRenderer renderer, String title, String xTitle,
 		      String yTitle, double xMin, double xMax, double yMin, double yMax, int axesColor,
 		      int labelsColor) {
 		    renderer.setChartTitle(title);
@@ -92,6 +102,8 @@ public abstract class AbstractCharts {
 		    renderer.setYAxisMax(yMax);
 		    renderer.setAxesColor(axesColor);
 		    renderer.setLabelsColor(labelsColor);
+		    
+		    
 		  }
 
 		  /**
@@ -180,7 +192,7 @@ public abstract class AbstractCharts {
 		   * @param values the values
 		   * @return the XY multiple bar dataset
 		   */
-		  protected XYMultipleSeriesDataset buildBarDataset(String[] titles, List<double[]> values) {
+		  protected static XYMultipleSeriesDataset buildBarDataset(String[] titles, List<double[]> values) {
 		    XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
 		    int length = titles.length;
 		    for (int i = 0; i < length; i++) {
@@ -207,6 +219,7 @@ public abstract class AbstractCharts {
 		    renderer.setChartTitleTextSize(20);
 		    renderer.setLabelsTextSize(15);
 		    renderer.setLegendTextSize(15);
+		   
 		    int length = colors.length;
 		    for (int i = 0; i < length; i++) {
 		      XYSeriesRenderer r = new XYSeriesRenderer();
@@ -215,4 +228,25 @@ public abstract class AbstractCharts {
 		    }
 		    return renderer;
 		  }
+		  protected Boolean handleTouch(android.view.MotionEvent me){
+			  
+			  return false;
+		  }
+		  public static boolean saveImageToInternalStorage(Bitmap image, Context context)
+			{
+			 try {
+
+			FileOutputStream fos = context.openFileOutput("photo.png", Context.MODE_PRIVATE);
+			  image.compress(Bitmap.CompressFormat.PNG, 100, fos);
+			                // 100 means no compression, the lower you go, the stronger the compression
+			  fos.close();
+			  return true;
+			 }
+			 catch (Exception e) {
+			//  Log.e("saveToInternalStorage()", e.getMessage());
+			 }
+			 return false;
+			}
+		
+	
 }

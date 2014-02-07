@@ -21,7 +21,7 @@ public class WebActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.diff_view3);
 		  final show_Web SHOWWEB= new show_Web();
-		  if(AvailableInternet.getInstance().isNetworkAvailable(getApplicationContext())){
+		  if(AvailableInternet.isNetworkAvailable(getApplicationContext())){
 				BROWSER = (WebView)findViewById(R.id.webView1);
 		        	runOnUiThread(new Runnable() {
 		        		@SuppressLint("SetJavaScriptEnabled")
@@ -42,7 +42,6 @@ public class WebActivity extends Activity{
 			            	            if(progress == 100)
 			            	               WebActivity.setTitle(R.string.app_name);
 			            		   		}
-			            	   
 			            	});
 			            }
 		        	});

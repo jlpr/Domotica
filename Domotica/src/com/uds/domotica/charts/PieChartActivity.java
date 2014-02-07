@@ -1,33 +1,71 @@
 package com.uds.domotica.charts;
 
 import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
+import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
+import com.uds.domotica.R;
 import com.uds.domotica.utils.RandomColor;
+import com.uds.domotica.utils.Utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
-public class PieChartActivity implements ICharts{
+public class PieChartActivity extends Activity {
 
-
+	 GraphicalView mchart;
+	String nameChart;
+	 String [][] datoSerie;
+	 Bitmap bitmap;
+    LinearLayout lChart;
+    
 	@Override
-	public String getNombre() {
+	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		return null;
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.showchart);
+		 lChart= (LinearLayout)findViewById(R.id.charts);
+			lChart.addView(crearGrafica());
+
+		
+			Button btnSave= (Button)findViewById(R.id.btnSaveImage);
+			btnSave.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+			
+	                mchart.setDrawingCacheEnabled(true); 
+	                mchart.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH); 
+	                //Build the cache, get the bitmap and close the cache 
+	                mchart.buildDrawingCache(true); 
+	                mchart.setSaveEnabled(true);
+	                Bitmap b = Bitmap.createBitmap(mchart.getDrawingCache()); 
+	                mchart.setDrawingCacheEnabled(false); 
+
+	                try { 
+	            AbstractCharts.saveImageToInternalStorage(b,getApplicationContext());
+	            Utils.getInstance().MakeToastLong(getApplicationContext(), "Guardado en: " + getPackageCodePath() );
+	                } catch (Exception e) { 
+	                        e.printStackTrace(); 
+	                } 
+				
+				}
+			});
 	}
 
-	@Override
-	public String getDescripcion() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Intent crearGrafica(Context context) {
+	public GraphicalView crearGrafica() {
 		// TODO Auto-generated method stub
 		// this is my data of performance; data is collected in array.
 	       int []Performance = {22, 15, 13,20,30};  // [0] for Call, [1] for Meeting, [2] for Email
@@ -42,7 +80,7 @@ public class PieChartActivity implements ICharts{
 	
 	        	int []colors= new int[series.getItemCount()];
 	            for (int i=0;i<series.getItemCount();i++){
-	            	colors[i]=RandomColor.getInstance().crearColor();
+	            	colors[i]=RandomColor.getInstance().createColor();
 	            }
 	            // set style for series
 	            DefaultRenderer renderer = new DefaultRenderer();
@@ -54,7 +92,6 @@ public class PieChartActivity implements ICharts{
 	                renderer.addSeriesRenderer(r);
 		           
 	            }
-	          
 	            renderer.isInScroll();
 	            renderer.setZoomButtonsVisible(true);   //set zoom button in Graph
 	            renderer.setApplyBackgroundColor(true);
@@ -65,6 +102,8 @@ public class PieChartActivity implements ICharts{
 	            renderer.setLabelsTextSize(20);
 	            renderer.setLegendTextSize(25);
 	            renderer.setDisplayValues(true);
-	            return ChartFactory.getPieChartIntent(context, series, renderer, "PieChart");
+	            mchart=ChartFactory.getPieChartView(getApplicationContext(), series, renderer);
+	            return mchart;
+	          
 	}
 }
