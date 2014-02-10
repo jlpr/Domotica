@@ -3,23 +3,14 @@ package com.uds.domotica.charts;
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.model.CategorySeries;
-import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
-import org.achartengine.renderer.XYMultipleSeriesRenderer;
-
 import com.uds.domotica.R;
 import com.uds.domotica.utils.RandomColor;
-import com.uds.domotica.utils.Utils;
-
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -38,31 +29,8 @@ public class PieChartActivity extends Activity {
 		setContentView(R.layout.showchart);
 		 lChart= (LinearLayout)findViewById(R.id.charts);
 			lChart.addView(crearGrafica());
-
-		
 			Button btnSave= (Button)findViewById(R.id.btnSaveImage);
-			btnSave.setOnClickListener(new OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-			
-	                mchart.setDrawingCacheEnabled(true); 
-	                mchart.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH); 
-	                //Build the cache, get the bitmap and close the cache 
-	                mchart.buildDrawingCache(true); 
-	                mchart.setSaveEnabled(true);
-	                Bitmap b = Bitmap.createBitmap(mchart.getDrawingCache()); 
-	                mchart.setDrawingCacheEnabled(false); 
-
-	                try { 
-	            AbstractCharts.saveImageToInternalStorage(b,getApplicationContext());
-	            Utils.getInstance().MakeToastLong(getApplicationContext(), "Guardado en: " + getPackageCodePath() );
-	                } catch (Exception e) { 
-	                        e.printStackTrace(); 
-	                } 
-				
-				}
-			});
+			btnSave.setOnClickListener(AbstractCharts.clickSaveChart(getApplicationContext(), mchart));
 	}
 
 	public GraphicalView crearGrafica() {

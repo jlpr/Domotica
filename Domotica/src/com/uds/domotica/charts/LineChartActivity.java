@@ -2,26 +2,18 @@ package com.uds.domotica.charts;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.achartengine.ChartFactory;
 import org.achartengine.GraphicalView;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer.FillOutsideLine;
-
 import com.uds.domotica.R;
-import com.uds.domotica.utils.Utils;
-
 import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
@@ -41,31 +33,8 @@ public class LineChartActivity extends Activity {
 		setContentView(R.layout.showchart);
 		 lChart= (LinearLayout)findViewById(R.id.charts);
 		lChart.addView(crearGrafica());
-
-	
 		Button btnSave= (Button)findViewById(R.id.btnSaveImage);
-		btnSave.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-		
-               mchart.setDrawingCacheEnabled(true); 
-               mchart.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH); 
-               //Build the cache, get the bitmap and close the cache 
-               mchart.buildDrawingCache(true); 
-               mchart.setSaveEnabled(true);
-               Bitmap b = Bitmap.createBitmap(mchart.getDrawingCache()); 
-               mchart.setDrawingCacheEnabled(false); 
-
-               try { 
-               	AbstractCharts.saveImageToInternalStorage(b,getApplicationContext());
-           Utils.getInstance().MakeToastLong(getApplicationContext(), "Guardado en: " + getPackageCodePath() );
-               } catch (Exception e) { 
-                       e.printStackTrace(); 
-               } 
-			
-			}
-		});
+		btnSave.setOnClickListener(AbstractCharts.clickSaveChart(getApplicationContext(), mchart));
 
 	}
 	public GraphicalView crearGrafica() {
@@ -90,12 +59,15 @@ public class LineChartActivity extends Activity {
     AbstractCharts.setChartSettings(renderer, "Monthly sales in the last 2 years", "Month", "Units sold", 0.75,
         12.25, -5000, 19000, Color.GRAY, Color.LTGRAY);
     renderer.setXLabels(12);
-    renderer.setYLabels(10);
+    renderer.setBackgroundColor(Color.BLACK);
+    renderer.setApplyBackgroundColor(true);
+     renderer.setYLabels(10);
     renderer.setChartTitleTextSize(20);
     renderer.setTextTypeface("sans_serif", Typeface.BOLD);
     renderer.setLabelsTextSize(14f);
     renderer.setAxisTitleTextSize(15);
     renderer.setLegendTextSize(15);
+    renderer.setZoomButtonsVisible(true);
     length = renderer.getSeriesRendererCount();
 
     for (int i = 0; i < length; i++) {

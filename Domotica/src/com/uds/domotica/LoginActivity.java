@@ -1,23 +1,12 @@
 package com.uds.domotica;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,10 +15,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import com.uds.domotica.introduction.CircleViewFlowExample;
-import com.uds.domotica.utils.BitmapChange;
 import com.uds.domotica.utils.ClickOpenClass;
 import com.uds.domotica.utils.ManagerXML;
-import com.uds.domotica.utils.Utils;
 
 public class LoginActivity extends Activity{
 	EditText EDTUSUARIO;
@@ -38,7 +25,7 @@ public class LoginActivity extends Activity{
 	CheckBox ckrRecordar;
 	RelativeLayout rlLogin;
 	TabHost tabWi;
-	@SuppressWarnings("deprecation")
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -56,19 +43,16 @@ public class LoginActivity extends Activity{
 	tabs.setContent(R.id.tab1);
 	tabs.setIndicator("Inicio");
 	tabWi.addTab(tabs);
-	TabHost.TabSpec tabs2= tabWi.newTabSpec("Introduccion");
+	TabHost.TabSpec tabs2= tabWi.newTabSpec("Gráfica Online");
 	tabs2.setContent(R.id.tab2);
-	tabs2.setIndicator("Introduccion");
+	tabs2.setIndicator("Gráfica Online");
 	tabWi.addTab(tabs2);
 	if(checkFile()){
 	}
 	else{
 		ManagerXML.escribirXML(this, "2130837513");
 	}
-	int idimagen=ManagerXML.leerXML(this);
-	//Utils.getInstance().MakeToastLong(getApplicationContext(), "error: "+idimagen );
-	rlLogin.setBackground(new BitmapDrawable(BitmapChange.decodeSampledBitmapFromResource(getResources(),idimagen, 300, 300)));
-	//rlLogin.setBackgroundResource(idimagen);
+
 	 loadSavedPreferences();
 	BTNLOGIN.setOnClickListener(new OnClickListener() {
 		@Override

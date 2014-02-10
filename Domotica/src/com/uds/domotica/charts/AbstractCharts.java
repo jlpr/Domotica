@@ -3,9 +3,7 @@
 import java.io.FileOutputStream;
 import java.util.Date;
 import java.util.List;
-
 import org.achartengine.GraphicalView;
-import org.achartengine.ITouchHandler;
 import org.achartengine.chart.PointStyle;
 import org.achartengine.model.CategorySeries;
 import org.achartengine.model.MultipleCategorySeries;
@@ -16,13 +14,12 @@ import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
+import com.uds.domotica.utils.Utils;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.Handler;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
+import android.view.View.OnClickListener;
+
 
 public  class AbstractCharts {
 	protected static XYMultipleSeriesDataset buildDataset(String[] titles, List<double[]> xValues,
@@ -232,8 +229,9 @@ public  class AbstractCharts {
 			  
 			  return false;
 		  }
+		  
 		  public static boolean saveImageToInternalStorage(Bitmap image, Context context)
-			{
+		  {
 			 try {
 
 			FileOutputStream fos = context.openFileOutput("photo.png", Context.MODE_PRIVATE);
@@ -247,6 +245,31 @@ public  class AbstractCharts {
 			 }
 			 return false;
 			}
+		  protected static OnClickListener clickSaveChart(final Context context, final GraphicalView mchart){
+			  OnClickListener oclSave= new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					mchart.setDrawingCacheEnabled(true); 
+		               mchart.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH); 
+		               //Build the cache, get the bitmap and close the cache 
+		               mchart.buildDrawingCache(true); 
+		               mchart.setSaveEnabled(true);
+		               Bitmap b = Bitmap.createBitmap(mchart.getDrawingCache()); 
+		               mchart.setDrawingCacheEnabled(false); 
+
+		               try { 
+		               	saveImageToInternalStorage(b,context);
+		           Utils.getInstance().MakeToastLong(context, "Guardado en: " + context.getPackageCodePath() );
+		               } catch (Exception e) { 
+		                       e.printStackTrace(); 
+		               } 
+				}
+			};
+			  
+			  return oclSave;
+		  }
 		
 	
 }

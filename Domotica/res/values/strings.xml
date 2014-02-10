@@ -11,6 +11,7 @@
     <string name="recorder">Recordarme</string>
     <string name="intro">Introducción </string>
     <string name="zlogo">Imagen de Z-wave</string>
+    
     <string name="name_web">Grafica Online</string>
     <string name="app_user_database">Base de Datos</string>
 	<string name="preferences">Preferencias</string>

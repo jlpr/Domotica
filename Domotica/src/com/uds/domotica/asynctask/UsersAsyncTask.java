@@ -1,38 +1,28 @@
 package com.uds.domotica.asynctask;
 
-
 import java.io.InputStream;
-
 import org.apache.http.HttpResponse;
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 import com.uds.domotica.BO.UserBO;
-
 import com.uds.domotica.utils.Utils;
-
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.util.Log;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class UsersAsyncTask extends AsyncTask<String ,Void, Boolean> {
 	private EditText edtpass,edtuser;
 	private Context context;
+	@SuppressWarnings("unused")
 	private Class<?> clasep;
     InputStream inputStream = null;
-	private JSONParser _usuarios;
-	private static String METHOD = "POST";
+
+	//private static String METHOD = "POST";
 	String url= "http://dyson.jit.su/user";
 
 	public UsersAsyncTask(EditText edtuser ,EditText edtpass,Context context,Class<?>clasep){

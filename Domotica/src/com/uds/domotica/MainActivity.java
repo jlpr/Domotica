@@ -5,7 +5,6 @@ import org.taptwo.android.widget.TitleFlowIndicator;
 import org.taptwo.android.widget.ViewFlow;
 import org.taptwo.android.widget.ViewFlow.ViewSwitchListener;
 import android.app.Activity;
-import android.content.ClipData.Item;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
@@ -135,6 +134,7 @@ public class MainActivity extends Activity {
 		    		   mQuickAction.setAnimStyle(QuickAction.ANIM_GROW_FROM_CENTER);
 		    	   }
 		       });
+		    
 		    LBAR= (LinearLayout)findViewById(R.id.layoutBar);
 		  	LBAR.setOnClickListener(clickSelection (1));
 		    LCHARTONLINE=(LinearLayout)findViewById(R.id.layoutOnline);

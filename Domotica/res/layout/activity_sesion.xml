@@ -41,7 +41,7 @@
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Grafica de Barras"
+                    android:text="Gráfica de Barras"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#ffffff" />
 
@@ -66,7 +66,7 @@
                     android:id="@+id/TextView01"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Grafica de Pie"
+                    android:text="Gráfica de Pie"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#ffffff" />
             </LinearLayout>
@@ -90,7 +90,7 @@
                     android:id="@+id/TextView04"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Grafica Temperatura"
+                    android:text="Gráfica Temperatura"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#ffffff" />
             </LinearLayout>
@@ -122,7 +122,7 @@
                     android:id="@+id/TextView02"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Grafica Lineal"
+                    android:text="Gráfica Lineal"
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#ffffff" />
 
@@ -149,7 +149,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                       android:textColor="#ffffff"
-                    android:text="Grafica Burbuja"
+                    android:text="Gráfica Burbuja"
                     android:textAppearance="?android:attr/textAppearanceSmall" />
 
             </LinearLayout>
@@ -173,7 +173,7 @@
                     android:id="@+id/TextView05"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Grafica Online."
+                    android:text="Gráfica Online."
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:textColor="#ffffff" />
             </LinearLayout>
